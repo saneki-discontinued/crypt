@@ -1,0 +1,41 @@
+crypt(1) -- hash passwords using **crypt**(3)
+=============================================
+
+## SYNOPSIS
+
+`crypt` [<options>...] [-s salt] password
+
+## DESCRIPTIONS
+
+**crypt** can output hashes as seen in `/etc/shadow` given a salt and a password.
+
+## OPTIONS
+
+  * `-1`, `--md5`:
+    Use the MD5 salt id (1).
+
+  * `-5`, `--sha256`:
+    Use the SHA256 salt id (5).
+
+  * `-6`, `--sha512`:
+    Use the SHA512 salt id (6).
+
+  * `-I`, `--no-id`:
+    Don't use a salt id.
+
+  * `-n`, `--no-newline`:
+    Don't print a newline after the output.
+
+  * `-s`, `--salt`=<salt>:
+    Specify the salt to use.
+
+  * `-h`, `-?`, `--help`:
+    Print usage information.
+
+## SEE ALSO
+
+  **crypt**(3)
+
+## GITHUB
+
+https://github.com/saneki/crypt

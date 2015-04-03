@@ -1,0 +1,49 @@
+.\" generated with Ronn/v0.7.3
+.\" http://github.com/rtomayko/ronn/tree/0.7.3
+.
+.TH "CRYPT" "1" "April 2015" "" ""
+.
+.SH "NAME"
+\fBcrypt\fR \- hash passwords using \fBcrypt\fR(3)
+.
+.SH "SYNOPSIS"
+\fBcrypt\fR [\fIoptions\fR\.\.\.] [\-s salt] password
+.
+.SH "DESCRIPTIONS"
+\fBcrypt\fR can output hashes as seen in \fB/etc/shadow\fR given a salt and a password\.
+.
+.SH "OPTIONS"
+.
+.TP
+\fB\-1\fR, \fB\-\-md5\fR
+Use the MD5 salt id (1)\.
+.
+.TP
+\fB\-5\fR, \fB\-\-sha256\fR
+Use the SHA256 salt id (5)\.
+.
+.TP
+\fB\-6\fR, \fB\-\-sha512\fR
+Use the SHA512 salt id (6)\.
+.
+.TP
+\fB\-I\fR, \fB\-\-no\-id\fR
+Don\'t use a salt id\.
+.
+.TP
+\fB\-n\fR, \fB\-\-no\-newline\fR
+Don\'t print a newline after the output\.
+.
+.TP
+\fB\-s\fR, \fB\-\-salt\fR=\fIsalt\fR
+Specify the salt to use\.
+.
+.TP
+\fB\-h\fR, \fB\-?\fR, \fB\-\-help\fR
+Print usage information\.
+.
+.SH "SEE ALSO"
+\fBcrypt\fR(3)
+.
+.SH "GITHUB"
+https://github\.com/saneki/crypt
