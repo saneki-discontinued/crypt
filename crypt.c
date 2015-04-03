@@ -31,8 +31,6 @@ int main(int argc, char *argv[])
 	crypt_args_t cargs = CRYPT_ARGS_DEFAULT;
 	parse_args(argc, argv, &cargs);
 
-	// Todo: A lot of stuff
-
 	if(cargs.help)
 	{
 		print_help();
