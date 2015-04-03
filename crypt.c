@@ -4,10 +4,10 @@
 #include <string.h>
 #include <getopt.h>
 
-const char *g_crypt_id_md5 = "1";
-const char *g_crypt_id_blowfish = "2a";
-const char *g_crypt_id_sha256 = "5";
-const char *g_crypt_id_sha512 = "6";
+#define CRYPT_ID_MD5 "1"
+#define CRYPT_ID_BLOWFISH "2a"
+#define CRYPT_ID_SHA256 "5"
+#define CRYPT_ID_SHA512 "6"
 
 typedef struct __crypt_args_t
 {
@@ -49,7 +49,7 @@ int main(int argc, char *argv[])
 	}
 
 	// Force SHA512 for now
-	const char *id = g_crypt_id_sha512;
+	const char *id = CRYPT_ID_SHA512;
 
 	int salt_len = strlen(cargs.salt);
 	int salt_id_len = strlen(id);
