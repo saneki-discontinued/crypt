@@ -61,12 +61,7 @@ int main(int argc, char *argv[])
 	{
 		const char *id = cargs.id;
 
-		int salt_len = strlen(cargs.salt);
-		int salt_id_len = strlen(id);
-
-		// Todo: Positive checks
-
-		size_t full_len = (size_t)salt_len + (size_t)salt_id_len + 3;
+		size_t full_len = strlen(cargs.salt) + strlen(id) + 3;
 		char full_salt[full_len + 1];
 		sprintf(full_salt, "$%s$%s$", id, cargs.salt);
 
