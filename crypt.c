@@ -5,7 +5,7 @@
 #include <getopt.h>
 
 const char *g_crypt_id_md5 = "1";
-const char *g_crypt_id_blowfist = "2a";
+const char *g_crypt_id_blowfish = "2a";
 const char *g_crypt_id_sha256 = "5";
 const char *g_crypt_id_sha512 = "6";
 
