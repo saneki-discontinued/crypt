@@ -68,6 +68,12 @@ int main(int argc, char *argv[])
 		hashed = crypt(cargs.pass, full_salt);
 	}
 
+	if(hashed == NULL)
+	{
+		fprintf(stderr, "crypt(3) returned NULL, aborting\n");
+		return 1;
+	}
+
 	// Print hashed password
 	if(cargs.no_newline) printf("%s", hashed);
 	else                 printf("%s\n", hashed);
