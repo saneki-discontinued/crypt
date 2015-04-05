@@ -29,6 +29,9 @@ crypt(1) -- hash passwords using **crypt**(3)
   * `-s`, `--salt`=<salt>:
     Specify the salt to use.
 
+  * `-v`, `--version`:
+    Print program version.
+
   * `-h`, `-?`, `--help`:
     Print usage information.
 
