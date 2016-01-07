@@ -26,68 +26,6 @@ typedef struct __crypt_args_t
 
 #define CRYPT_ARGS_DEFAULT { NULL, NULL, CRYPT_ID_SHA512, false, false, false }
 
-void parse_args(int argc, char *argv[], crypt_args_t *cargs);
-void print_help();
-void print_version();
-
-int main(int argc, char *argv[])
-{
-	crypt_args_t cargs = CRYPT_ARGS_DEFAULT;
-	parse_args(argc, argv, &cargs);
-
-	if(cargs.help)
-	{
-		print_help();
-		return 0;
-	}
-	else if(cargs.version)
-	{
-		print_version();
-		return 0;
-	}
-
-	if(cargs.pass == NULL)
-	{
-		fprintf(stderr, "nothing to hash, aborting\n");
-		return 1;
-	}
-
-	if(cargs.salt == NULL || strlen(cargs.salt) == 0)
-	{
-		fprintf(stderr, "a salt is required, aborting\n");
-		return 1;
-	}
-
-	char *hashed;
-
-	if(cargs.id == NULL)
-	{
-		hashed = crypt(cargs.pass, cargs.salt);
-	}
-	else
-	{
-		const char *id = cargs.id;
-
-		size_t full_len = strlen(cargs.salt) + strlen(id) + 3;
-		char full_salt[full_len + 1];
-		sprintf(full_salt, "$%s$%s$", id, cargs.salt);
-
-		hashed = crypt(cargs.pass, full_salt);
-	}
-
-	if(hashed == NULL)
-	{
-		fprintf(stderr, "crypt(3) returned NULL, aborting\n");
-		return 1;
-	}
-
-	// Print hashed password
-	if(cargs.no_newline) printf("%s", hashed);
-	else                 printf("%s\n", hashed);
-
-	return 0;
-}
-
 void parse_args(int argc, char *argv[], crypt_args_t *cargs)
 {
 	const char *argstr = "156Ins:vh?";
@@ -154,6 +92,11 @@ void parse_args(int argc, char *argv[], crypt_args_t *cargs)
 	}
 }
 
+void print_version()
+{
+	printf("crypt version %s\n", CRYPT_VERSION);
+}
+
 void print_help()
 {
 	print_version();
@@ -171,7 +114,60 @@ void print_help()
 	printf("\n");
 }
 
-void print_version()
+int main(int argc, char *argv[])
 {
-	printf("crypt version %s\n", CRYPT_VERSION);
+	crypt_args_t cargs = CRYPT_ARGS_DEFAULT;
+	parse_args(argc, argv, &cargs);
+
+	if(cargs.help)
+	{
+		print_help();
+		return 0;
+	}
+	else if(cargs.version)
+	{
+		print_version();
+		return 0;
+	}
+
+	if(cargs.pass == NULL)
+	{
+		fprintf(stderr, "nothing to hash, aborting\n");
+		return 1;
+	}
+
+	if(cargs.salt == NULL || strlen(cargs.salt) == 0)
+	{
+		fprintf(stderr, "a salt is required, aborting\n");
+		return 1;
+	}
+
+	char *hashed;
+
+	if(cargs.id == NULL)
+	{
+		hashed = crypt(cargs.pass, cargs.salt);
+	}
+	else
+	{
+		const char *id = cargs.id;
+
+		size_t full_len = strlen(cargs.salt) + strlen(id) + 3;
+		char full_salt[full_len + 1];
+		sprintf(full_salt, "$%s$%s$", id, cargs.salt);
+
+		hashed = crypt(cargs.pass, full_salt);
+	}
+
+	if(hashed == NULL)
+	{
+		fprintf(stderr, "crypt(3) returned NULL, aborting\n");
+		return 1;
+	}
+
+	// Print hashed password
+	if(cargs.no_newline) printf("%s", hashed);
+	else                 printf("%s\n", hashed);
+
+	return 0;
 }
