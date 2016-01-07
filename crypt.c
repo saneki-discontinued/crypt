@@ -28,8 +28,7 @@ void parse_args(int argc, char *argv[])
 	int option_index = 0;
 	int c;
 
-	struct option long_options[] =
-	{
+	struct option long_options[] = {
 		{ "md5", no_argument,         0, '1' },
 		{ "no-id", no_argument,       0, 'I' },
 		{ "no-newline", no_argument,  0, 'n' },
@@ -41,38 +40,29 @@ void parse_args(int argc, char *argv[])
 		{ 0, 0, 0, 0 }
 	};
 
-	while((c = getopt_long(argc, argv, argstr, long_options, &option_index)) != -1)
-	{
-		switch(c)
-		{
+	while ((c = getopt_long(argc, argv, argstr, long_options, &option_index)) != -1) {
+		switch (c) {
 			case '1':
 				g_id = CRYPT_ID_MD5;
 				break;
-
 			case '5':
 				g_id = CRYPT_ID_SHA256;
 				break;
-
 			case '6':
 				g_id = CRYPT_ID_SHA512;
 				break;
-
 			case 'I':
 				g_id = NULL;
 				break;
-
 			case 'n':
 				g_no_newline = true;
 				break;
-
 			case 's':
 				g_salt = optarg;
 				break;
-
 			case 'v':
 				g_version = true;
 				break;
-
 			case '?':
 			case 'h':
 				g_help = true;
@@ -81,8 +71,7 @@ void parse_args(int argc, char *argv[])
 	}
 
 	// Last argument should be password, or string to hash
-	for(int i = optind; i < argc; i++)
-	{
+	for (int i = optind; i < argc; i++) {
 		g_pass = argv[i];
 	}
 }
@@ -113,37 +102,29 @@ int main(int argc, char *argv[])
 {
 	parse_args(argc, argv);
 
-	if(g_help)
-	{
+	if (g_help) {
 		print_help();
 		return 0;
-	}
-	else if(g_version)
-	{
+	} else if (g_version) {
 		print_version();
 		return 0;
 	}
 
-	if(g_pass == NULL)
-	{
+	if (g_pass == NULL) {
 		fprintf(stderr, "nothing to hash, aborting\n");
 		return 1;
 	}
 
-	if(g_salt == NULL || strlen(g_salt) == 0)
-	{
+	if (g_salt == NULL || strlen(g_salt) == 0) {
 		fprintf(stderr, "a salt is required, aborting\n");
 		return 1;
 	}
 
 	char *hashed;
 
-	if(g_id == NULL)
-	{
+	if (g_id == NULL) {
 		hashed = crypt(g_pass, g_salt);
-	}
-	else
-	{
+	} else {
 		const char *id = g_id;
 
 		size_t full_len = strlen(g_salt) + strlen(id) + 3;
@@ -153,15 +134,16 @@ int main(int argc, char *argv[])
 		hashed = crypt(g_pass, full_salt);
 	}
 
-	if(hashed == NULL)
-	{
+	if (hashed == NULL) {
 		fprintf(stderr, "crypt(3) returned NULL, aborting\n");
 		return 1;
 	}
 
 	// Print hashed password
-	if(g_no_newline) printf("%s", hashed);
-	else             printf("%s\n", hashed);
+	if (g_no_newline)
+		printf("%s", hashed);
+	else
+		printf("%s\n", hashed);
 
 	return 0;
 }
